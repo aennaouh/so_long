@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utilis.c                                   :+:      :+:    :+:   */
+/*   so_long_utilis_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 19:21:39 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/22 23:55:09 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:38:19 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_putnbr(int n)
-{
-	char	c;
-
-	if (n == -2147483648)
-		write(1, "-2147483648", 11);
-	else if (n < 0)
-	{
-		write(1, "-", 1);
-		ft_putnbr(-n);
-	}
-	else if (n > 9)
-	{
-		ft_putnbr(n / 10);
-		ft_putnbr(n % 10);
-	}
-	else
-	{
-		c = n + 48;
-		write(1, &c, 1);
-	}
-}
 
 void	ft_putstr(char *s)
 {
@@ -66,18 +43,50 @@ char	*ft_strd(const char *s1)
 	return (str);
 }
 
-char	*ft_strchr_str(const char *str, int c)
+int	count(long n)
 {
-	char	*ptr;
+	int	count;
 
-	ptr = (char *)str;
-	while (*ptr)
+	count = 0;
+	if (n == 0)
+		count++;
+	if (n < 0)
 	{
-		if ((char)c == *ptr)
-			return (ptr);
-		ptr++;
+		n = n * -1;
+		count++;
 	}
-	if (*ptr == (char)c)
-		return (ptr);
-	return (NULL);
+	while (n > 0)
+	{
+		n = n / 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		lent;
+	long	nb;
+
+	nb = n;
+	lent = count(nb);
+	str = (char *)malloc(lent * sizeof(char) + 1);
+	if (!str)
+		return (NULL);
+	str[lent--] = '\0';
+	if (nb < 0)
+	{
+		str[0] = '-';
+		nb = nb * -1;
+	}
+	else if (nb == 0)
+		str[lent] = '0';
+	while (nb > 0)
+	{
+		str[lent] = nb % 10 + 48;
+		nb = nb / 10;
+		lent--;
+	}
+	return (str);
 }

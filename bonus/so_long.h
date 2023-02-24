@@ -6,7 +6,7 @@
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:47:25 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/14 18:53:44 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/23 00:03:27 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,37 +53,35 @@ typedef struct s_utilise
 	int		key_exit;
 	int		player_x;
 	int		player_y;
-	int		jen;
+	int		ben;
 	int		l;
 	int		f;
-	int		enemy_frame;
+	char	**arg;
+	int		enemy_check;
 	int		frame;
+	int		move;
+	char	*tab;
 }			t_data;
 
 char		**read_line(char **argv);
-void		fix_map(char **str);
+void		fix_map(t_data *data);
 void		count_collec(char **ptr, t_data data);
 char		**read_line(char **argv);
 int			ft_strrts(const char *str);
 void		construction(int i, t_data *data);
 int			lenstr(char **str);
-int			maplen(char **av);
-void		position_P(char **map, t_data *data);
-void		caree(char **ptr, int i, int jen);
+int			map_len(char **av);
 int			ft_move(int keycode, void *param);
 void		ft_putstr(char *s);
 int			maplen2(char **str);
 void		exit_eat(t_data *data);
 void		ft_putnbr(int n);
-int			enemy_p(t_data *data);
+int			enemy_a(t_data *data);
 void		enemyleft(t_data *data);
 void		enemyright(t_data *data);
 void		enemydown(t_data *data);
 void		enemyup(t_data *data);
-void		ft_check(t_data *data);
 char		**ft_map_copy(t_data *data);
-int			ft_backtr(t_data *data, int i, int j, char c);
-void		ft_check(t_data *data);
 void		moveright(t_data *data);
 void		moveleft(t_data *data);
 void		movedown(t_data *data);
@@ -92,7 +90,19 @@ int			up(t_data *data, int i, int j);
 int			right(t_data *data, int i, int j);
 int			left(t_data *data, int i, int j);
 int			down(t_data *data, int i, int j);
-int			count(t_data data, char **ptr);
 int			enemy_mo(t_data *data);
-
+int			ft_destroy(void);
+void		ft_do_it(t_data *data);
+char		**ft_map_copy(t_data *data);
+char		*ft_strd(const char *s1);
+void		name_map(char *ar);
+char		*ft_itoa(int n);
+void		move_up_1(t_data *data, int i, int j);
+void		move_right_1(t_data *data, int i, int j);
+void		move_down_1(t_data *data, int i, int j);
+void		move_left_1(t_data *data, int i, int j);
+void		caree(char **ptr, int i, int jen);
+void		suit_count_collect(char **ptr, t_data *data);
+void		differnt_caracter(t_data *data );
+char		*ft_strchr_str(const char *str, int c);
 #endif

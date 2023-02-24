@@ -6,7 +6,7 @@
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:47:25 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/14 17:55:02 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:17:20 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 typedef struct s_utilise
 {
@@ -53,26 +54,26 @@ typedef struct s_utilise
 	int		l;
 	int		f;
 	int		jen;
+	char	**arg;
+	int		move;
+	char	*tab;
 }			t_data;
 
 char		**read_line(char **argv);
-void		fix_map(char **str);
+void		fix_map(t_data *data);
 void		count_collec(char **ptr, t_data data);
 char		**read_line(char **argv);
 int			ft_strrts(const char *str);
 void		construction(t_data *data);
 int			lenstr(char **str);
-int			maplen(char **av);
-void		position_P(char **map, t_data *data);
+int			map_len(char **av);
 void		caree(char **ptr, int i, int jen);
 int			ft_move(int keycode, void *param);
 void		ft_putstr(char *s);
 int			maplen2(char **str);
 void		exit_eat(t_data *data);
 void		ft_putnbr(int n);
-int			ft_backtr(t_data *data, int i, int j, char c);
 char		**ft_map_copy(t_data *data);
-void		ft_check(t_data *data);
 void		moveright(t_data *data);
 void		moveleft(t_data *data);
 void		movedown(t_data *data);
@@ -81,6 +82,16 @@ int			up(t_data *data, int i, int j);
 int			right(t_data *data, int i, int j);
 int			left(t_data *data, int i, int j);
 int			down(t_data *data, int i, int j);
-int			count(t_data data, char **ptr);
-
+void		ft_do_it(t_data *data);
+char		*ft_strd(const char *s1);
+char		**ft_map_copy(t_data *data);
+int			ft_destroy(void);
+void		name_map(char *ar);
+void		suit_up(t_data *data, int i, int j);
+void		suit_down(t_data *data, int i, int j);
+void		suit_left(t_data *data, int i, int j);
+void		suit_right(t_data *data, int i, int j);
+void		exit_eat(t_data *data);
+void		differnt_caracter(t_data *data);
+char		*ft_strchr_str(const char *str, int c);
 #endif

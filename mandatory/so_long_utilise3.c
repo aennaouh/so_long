@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utilis.c                                   :+:      :+:    :+:   */
+/*   so_long_utilise3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 19:21:39 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/12 22:19:39 by aennaouh         ###   ########.fr       */
+/*   Created: 2023/02/22 23:54:34 by aennaouh          #+#    #+#             */
+/*   Updated: 2023/02/22 23:55:19 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_putstr(char *s)
+int	ft_destroy(void)
 {
-	int		i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-		write(1, &s[i++], 1);
+	exit(0);
+	return (0);
 }
 
-void	ft_putnbr(int n)
+void	exit_eat(t_data *data)
 {
-	char	c;
+	int	i;
+	int	j;
+	int	count;
 
-	if (n == -2147483648)
-		write(1, "-2147483648", 11);
-	else if (n < 0)
+	i = 0;
+	count = 0;
+	while (data->map[i])
 	{
-		write(1, "-", 1);
-		ft_putnbr(-n);
+		j = 0;
+		while (data->map[i][j])
+		{
+			if (data->map[i][j] == 'C')
+			{
+				count++;
+			}
+			j++;
+		}
+		i++;
 	}
-	else if (n > 9)
+	if (count == 0)
 	{
-		ft_putnbr(n / 10);
-		ft_putnbr(n % 10);
-	}
-	else
-	{
-		c = n + 48;
-		write(1, &c, 1);
+		construction(data);
+		exit(1);
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move.c                                             :+:      :+:    :+:   */
+/*   move_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:09:24 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/14 18:41:12 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/21 15:41:17 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	up(t_data *data, int i, int j)
 		{
 			if (data->map[i - 1][j] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i - 1][j] = 'P';
-				construction(data->enemy_frame, data);
+				move_up_1(data, i, j);
 				return (1);
 			}
 			if (data->map[i - 1][j] == 'C')
@@ -30,7 +28,8 @@ int	up(t_data *data, int i, int j)
 				data->map[i][j] = 'C';
 				data->map[i - 1][j] = 'P';
 				data->map[i][j] = '0';
-				construction(data->enemy_frame, data);
+				construction(data->enemy_check, data);
+				data->move++;
 			}
 			else if (data->map[i - 1][j] == 'E')
 				exit_eat(data);
@@ -48,9 +47,7 @@ int	down(t_data *data, int i, int j)
 		{
 			if (data->map[i + 1][j] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i + 1][j] = 'P';
-				construction(data->enemy_frame, data);
+				move_down_1(data, i, j);
 				return (1);
 			}
 			else if (data->map[i + 1][j] == 'C')
@@ -58,7 +55,8 @@ int	down(t_data *data, int i, int j)
 				data->map[i][j] = 'C';
 				data->map[i + 1][j] = 'P';
 				data->map[i][j] = '0';
-				construction(data->enemy_frame,data);
+				construction(data->enemy_check, data);
+				data->move++;
 			}
 			else if (data->map[i + 1][j] == 'E')
 				exit_eat(data);
@@ -76,10 +74,7 @@ int	left(t_data *data, int i, int j)
 		{
 			if (data->map[i][j - 1] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i][j - 1] = 'P';
-				data->map[i][j] = '0';
-				construction(data->enemy_frame, data);
+				move_left_1(data, i, j);
 				return (1);
 			}
 			else if (data->map[i][j - 1] == 'C')
@@ -87,7 +82,8 @@ int	left(t_data *data, int i, int j)
 				data->map[i][j] = 'C';
 				data->map[i][j - 1] = 'P';
 				data->map[i][j] = '0';
-				construction(data->enemy_frame, data);
+				construction(data->enemy_check, data);
+				data->move++;
 			}
 			else if (data->map[i][j - 1] == 'E')
 				exit_eat(data);
@@ -105,9 +101,7 @@ int	right(t_data *data, int i, int j)
 		{
 			if (data->map[i][j + 1] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i][j + 1] = 'P';
-				construction(data->enemy_frame, data);
+				move_right_1(data, i, j);
 				return (1);
 			}
 			else if (data->map[i][j + 1] == 'C')
@@ -115,7 +109,8 @@ int	right(t_data *data, int i, int j)
 				data->map[i][j] = 'C';
 				data->map[i][j + 1] = 'P';
 				data->map[i][j] = '0';
-				construction(data->enemy_frame, data);
+				construction(data->enemy_check, data);
+				data->move++;
 			}
 			else if (data->map[i][j + 1] == 'E')
 				exit_eat(data);
@@ -123,32 +118,4 @@ int	right(t_data *data, int i, int j)
 		j++;
 	}
 	return (0);
-}
-
-void	exit_eat(t_data *data)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'C')
-			{
-				count++;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (count == 0)
-	{
-		construction(data->enemy_frame, data);
-		exit(1);
-	}
 }

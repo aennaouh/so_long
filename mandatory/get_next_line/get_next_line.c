@@ -6,7 +6,7 @@
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 22:35:43 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/01/26 16:20:44 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/22 01:31:33 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,3 @@ char	*get_next_line(int fd)
 	str = fix_line(str);
 	return (ret);
 }
-
-// int main ()
-// {
-// 	int fd = open("fff", O_RDWR); 
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	system("leaks a.out");
-// 	usleep(1000 * 1000);
-// }

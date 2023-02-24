@@ -6,7 +6,7 @@
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 12:09:24 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/13 13:26:17 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:54:59 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	up(t_data *data, int i, int j)
 		{
 			if (data->map[i - 1][j] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i - 1][j] = 'P';
-				construction(data);
+				suit_up(data, i, j);
 				return (1);
 			}
 			if (data->map[i - 1][j] == 'C')
@@ -31,6 +29,9 @@ int	up(t_data *data, int i, int j)
 				data->map[i - 1][j] = 'P';
 				data->map[i][j] = '0';
 				construction(data);
+				ft_putnbr(data->move++);
+				ft_putstr("\n");
+				return (1);
 			}
 			else if (data->map[i - 1][j] == 'E')
 				exit_eat(data);
@@ -48,9 +49,7 @@ int	down(t_data *data, int i, int j)
 		{
 			if (data->map[i + 1][j] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i + 1][j] = 'P';
-				construction(data);
+				suit_down(data, i, j);
 				return (1);
 			}
 			else if (data->map[i + 1][j] == 'C')
@@ -59,6 +58,9 @@ int	down(t_data *data, int i, int j)
 				data->map[i + 1][j] = 'P';
 				data->map[i][j] = '0';
 				construction(data);
+				ft_putnbr(data->move++);
+				ft_putstr("\n");
+				return (1);
 			}
 			else if (data->map[i + 1][j] == 'E')
 				exit_eat(data);
@@ -76,10 +78,7 @@ int	left(t_data *data, int i, int j)
 		{
 			if (data->map[i][j - 1] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i][j - 1] = 'P';
-				data->map[i][j] = '0';
-				construction(data);
+				suit_left(data, i, j);
 				return (1);
 			}
 			else if (data->map[i][j - 1] == 'C')
@@ -88,6 +87,9 @@ int	left(t_data *data, int i, int j)
 				data->map[i][j - 1] = 'P';
 				data->map[i][j] = '0';
 				construction(data);
+				ft_putnbr(data->move++);
+				ft_putstr("\n");
+				return (1);
 			}
 			else if (data->map[i][j - 1] == 'E')
 				exit_eat(data);
@@ -105,9 +107,7 @@ int	right(t_data *data, int i, int j)
 		{
 			if (data->map[i][j + 1] == '0')
 			{
-				data->map[i][j] = '0';
-				data->map[i][j + 1] = 'P';
-				construction(data);
+				suit_right(data, i, j);
 				return (1);
 			}
 			else if (data->map[i][j + 1] == 'C')
@@ -116,6 +116,9 @@ int	right(t_data *data, int i, int j)
 				data->map[i][j + 1] = 'P';
 				data->map[i][j] = '0';
 				construction(data);
+				ft_putnbr(data->move++);
+				ft_putstr("\n");
+				return (1);
 			}
 			else if (data->map[i][j + 1] == 'E')
 				exit_eat(data);
@@ -123,32 +126,4 @@ int	right(t_data *data, int i, int j)
 		j++;
 	}
 	return (0);
-}
-
-void	exit_eat(t_data *data)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			if (data->map[i][j] == 'C')
-			{
-				count++;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (count == 0)
-	{
-		construction(data);
-		exit(1);
-	}
 }

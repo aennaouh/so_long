@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maps.c                                             :+:      :+:    :+:   */
+/*   maps_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aennaouh <aennaouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:16:39 by aennaouh          #+#    #+#             */
-/*   Updated: 2023/02/23 16:52:06 by aennaouh         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:36:11 by aennaouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	suit_count_collect(char **ptr, t_data *data)
+{
+	if (ptr[data->i][data->j] == 'P')
+			data->player++;
+	else if (ptr[data->i][data->j] == 'C')
+			data->collectible++;
+	else if (ptr[data->i][data->j] == 'E')
+			data->exit++;
+	else if (ptr[data->i][data->j] == 'A')
+			data->enemy++;
+}
 
 void	count_collec(char **ptr, t_data data)
 {
@@ -18,29 +30,26 @@ void	count_collec(char **ptr, t_data data)
 	data.collectible = 0;
 	data.player = 0;
 	data.exit = 0;
+	data.enemy = 0;
 	while (ptr[data.i])
 	{
 		data.j = 0;
 		while (ptr[data.i][data.j])
 		{
-			if (ptr[data.i][data.j] == 'P')
-			data.player++;
-			else if (ptr[data.i][data.j] == 'C')
-			data.collectible++;
-			else if (ptr[data.i][data.j] == 'E')
-			data.exit++;
+			suit_count_collect (ptr, &data);
 		data.j++;
 		}
 		data.i++;
 	}
-	if (data.player != 1 || data.collectible < 1 || data.exit != 1)
+	if (data.player != 1 || data.collectible < 1 \
+		|| data.exit != 1 || data.enemy < 1)
 	{
-		write(2, "Error\nerr not work \n", 21);
+		write(2, "Error\nerr not \n", 16);
 		exit(1);
 	}
 }
 
-void	fix_map_up(t_data *data)
+void	fix_map_down(t_data *data)
 {
 	int	i;
 	int	j;
@@ -80,12 +89,12 @@ void	fix_map(t_data *data)
 	{
 		if (data->map[j][i - 1] != '1' || data->map[j][0] != '1')
 		{
-			write(2, "Error\ninvalide_right_left\n", 27);
+			write(2, "Error\ninvalide map_left_right\n", 31);
 			exit(1);
 		}
 		j++;
 	}
-	fix_map_up(data);
+	fix_map_down(data);
 }
 
 void	caree(char **ptr, int i, int ben)
@@ -101,7 +110,7 @@ void	caree(char **ptr, int i, int ben)
 		{
 			if (len != ft_strlen(ptr[i]) + 1)
 			{
-				write(2, "Error\ninvalid caree1\n", 22);
+				write(2, "Error\n invalide caree\n", 23);
 				exit(0);
 			}
 		}
@@ -109,31 +118,9 @@ void	caree(char **ptr, int i, int ben)
 		{
 			if (len != ft_strlen(ptr[i]))
 			{
-				write(2, "Error\ninvalid caree2\n", 22);
+				write(2, "Error\n invalide caree\n", 23);
 				exit(0);
 			}
-		}
-		i++;
-	}
-}
-
-void	differnt_caracter(t_data *data )
-{
-	int	i ;
-	int	j;
-
-	i = 0;
-	while (data->map[i])
-	{
-		j = 0;
-		while (data->map[i][j] && data->map[i][j] != '\n')
-		{
-			if (!ft_strchr_str("01PCE", data->map[i][j]))
-			{
-				write(2, "Error:\n invlaide caracter", 26);
-				exit (1);
-			}
-			j++;
 		}
 		i++;
 	}
